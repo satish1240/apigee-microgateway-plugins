@@ -105,9 +105,9 @@ oauth:
 
   tokenCacheSize: 150
   
-  # Skips the oauth if this is present and urls are mentioned. Example as:
+  # Skips the oauth if this section is present and any URIs mentioned. Example as:
   
-  skipurl:
+  skipURI:
      - /healthcheck
      - /ping
 ```
