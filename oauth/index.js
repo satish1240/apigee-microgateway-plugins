@@ -73,6 +73,8 @@ module.exports.init = function(config, logger, stats) {
         var apiKey;
         //this flag will enable check against resource paths only
         productOnly = config.hasOwnProperty('productOnly') ? config.productOnly : false;
+        //this flag will check whether to skip oauth for mentioned urls 
+        var skipURIList = config.hasOwnProperty('skipURI') ? config.skipURI : false;	    
         //if local proxy is set, ignore proxies
         if (process.env.EDGEMICRO_LOCAL_PROXY === "1") {
             productOnly = true;
@@ -86,18 +88,17 @@ module.exports.init = function(config, logger, stats) {
         isFailOpen = config.hasOwnProperty('failOpen') ? config.failOpen : false;
         //
         
-		//First check whether any urls are there to skip oauth or not
-		var pathIn = req.targetPath
-		if (config.skipurl !== null) {
-		    var list=config.skipurl		
-			for (var i=0; i < list.length; i++) {
-				//no wildcard
-				if (list[i] === pathIn) {
-					debug ('oauth skipped for ' + pathIn)
-					return next();
-				}			
-			}			
-		}
+	//First check whether any urls are there to skip oauth or not
+	var pathIn = req.targetPath
+	if (skipURIList !== null) {
+	    for (var i=0; i < skipURIList.length; i++) {
+		//no wildcard
+		if (skipURIList[i] === pathIn) {
+		    debug ('oauth skipped for ' + pathIn)
+		    return next();
+		}			
+	    }			
+	}
         
         //support for enabling oauth or api key only
         var header = false;
