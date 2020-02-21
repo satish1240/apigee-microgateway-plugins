@@ -74,7 +74,7 @@ module.exports.init = function(config, logger, stats) {
         //this flag will enable check against resource paths only
         productOnly = config.hasOwnProperty('productOnly') ? config.productOnly : false;
         //this flag will check whether to skip oauth for mentioned urls 
-        var skipURIList = config.hasOwnProperty('skipURI') ? config.skipURI : false;	    
+        var skipURIList = config.hasOwnProperty('skipURI') ? config.skipURI : null;	    
         //if local proxy is set, ignore proxies
         if (process.env.EDGEMICRO_LOCAL_PROXY === "1") {
             productOnly = true;
