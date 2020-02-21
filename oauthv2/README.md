@@ -62,6 +62,12 @@ oauth:
   # Default: 100
 
   tokenCacheSize: 150
+  
+  # Skips the oauth if this is present and urls are mentioned. Example as:
+  
+  skipURI:
+     - /healthcheck
+     - /ping  
 ```
 
 ## Enable the plugin
