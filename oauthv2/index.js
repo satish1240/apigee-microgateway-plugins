@@ -53,6 +53,20 @@ module.exports.init = function(config, logger, stats) {
         //max number of tokens in the cache
         tokenCacheSize = config.hasOwnProperty('tokenCacheSize') ? config.tokenCacheSize : 100;
         //
+	    
+	//First check whether any urls are there to skip oauth or not
+	var pathIn = req.targetPath
+	if (config.skipurl !== null) {
+	    var list=config.skipurl		
+		for (var i=0; i < list.length; i++) {
+			//no wildcard
+			if (list[i] === pathIn) {
+				debug ('oauth skipped for ' + pathIn)
+				return next();
+			}			
+		}			
+	}
+	    
         var header = false;
         if (!req.headers[authHeaderName]) {
             if (config.allowNoAuthorization) {
