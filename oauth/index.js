@@ -85,6 +85,20 @@ module.exports.init = function(config, logger, stats) {
         failopenGraceInterval = config.hasOwnProperty('failopenGraceInterval') ? config.failopenGraceInterval : 0;
         isFailOpen = config.hasOwnProperty('failOpen') ? config.failOpen : false;
         //
+        
+		//First check whether any urls are there to skip oauth or not
+		var pathIn = req.targetPath
+		if (config.skipurl !== null) {
+		    var list=config.skipurl		
+			for (var i=0; i < list.length; i++) {
+				//no wildcard
+				if (list[i] === pathIn) {
+					debug ('oauth skipped for ' + pathIn)
+					return next();
+				}			
+			}			
+		}
+        
         //support for enabling oauth or api key only
         var header = false;
         if (oauth_only) {
