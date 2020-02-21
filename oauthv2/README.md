@@ -65,7 +65,7 @@ oauth:
   
   # Skips the oauth if this is present and urls are mentioned. Example as:
   
-  skipurl:
+  skipURI:
      - /healthcheck
      - /ping  
 ```
