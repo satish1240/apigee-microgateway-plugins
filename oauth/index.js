@@ -93,7 +93,7 @@ module.exports.init = function(config, logger, stats) {
 	if (skipURIList !== null) {
 	    for (var i=0; i < skipURIList.length; i++) {
 		//no wildcard
-		if (skipURIList[i] === pathIn) {
+		if (pathIn.startsWith(skipURIList[i])) {
 		    debug ('oauth skipped for ' + pathIn)
 		    return next();
 		}			
